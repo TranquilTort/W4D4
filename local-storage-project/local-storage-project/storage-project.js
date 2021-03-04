@@ -25,13 +25,30 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const shoppingCart = document.getElementById('shopping-cart');
     const shoppingItems = document.querySelectorAll('li');
     const shoppingItemsArr = Array.from(shoppingItems);
+    console.log(shoppingItemsArr)
+    
     
     for(let i=0; i<localStorage.length; i++){
-
-      let listItem = document.createElement('li');
-      list
-      listItem.innerText= `${localStorage.getItem(localStorage.key(i))} ${localStorage.key(i)}`;
-      shoppingCart.appendChild(listItem);
+      let alreadyInCart = false;
+      if (shoppingItemsArr.length > 0) {
+      for (let j = 0; j < shoppingItemsArr.length; j++) {
+        if (shoppingItemsArr[j].innerHTML.includes(localStorage.key(i))) {
+          alreadyInCart = true;
+          console.log('contains already')
+          shoppingItems[j].innerText = `${localStorage.getItem(localStorage.key(i))} ${localStorage.key(i)}`;
+          
+        }
+        
+      }
+    } 
+          if (!alreadyInCart) {
+          let listItem = document.createElement('li');
+          console.log('new li')
+          listItem.innerText= `${localStorage.getItem(localStorage.key(i))} ${localStorage.key(i)}`;
+          shoppingCart.appendChild(listItem);
+          }
+      
+      
     }
 
   });
